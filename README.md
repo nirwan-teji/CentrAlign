@@ -82,3 +82,5 @@ The repository includes `render.yaml`, which defines two Singapore-region web se
 The free-tier deployment uses ephemeral local storage for ChromaDB, evidence, screenshots, and the mock ERP database. It is intended for a demonstration, not durable production data.
 
 For manual two-service setup, deploy the ERP first, copy its public `https://...onrender.com` URL, and set that URL as `SANDBOX_ERP_URL` on the agent service.
+
+For the agent service, use `pip install -r requirements.txt && playwright install chromium` as the build command. Render's build environment does not permit Playwright's `--with-deps` root escalation.
