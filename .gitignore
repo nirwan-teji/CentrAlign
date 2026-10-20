@@ -1,0 +1,19 @@
+.env
+.venv/
+.pytest_cache/
+__pycache__/
+*.py[cod]
+.DS_Store
+
+# Runtime-generated local state
+data/chromadb/
+data/evidence/
+data/screenshots/
+
+# Local editor and OS files
+.idea/
+.vscode/
+*.swp
+
+# Internal task materials
+agent_artifacts/

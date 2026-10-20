@@ -1,0 +1,7 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CentrAlign Console</title><link rel="stylesheet" href="/static/style.css"></head>
+<body><main><header><p class="eyebrow">CENTRALIGN AI</p><h1>Autonomous operations console</h1><p>Submit a goal and watch the execution trace, recovery loop, and verification evidence.</p></header>
+<section class="card"><textarea id="goal">Process the incoming vendor invoices and reconcile them with purchase orders.</textarea><button id="start">Start run</button></section>
+<section id="approval" class="card approval hidden"><h2>Human approval required</h2><p id="approval-reason"></p><pre id="approval-data"></pre><div><button data-decision="approved">Approve</button><button data-decision="rejected" class="danger">Reject</button><button data-decision="guidance" class="secondary">Provide guidance</button></div><input id="approval-comment" placeholder="Optional comment or correction" /></section>
+<section class="grid"><article class="card"><h2>Live trace</h2><pre id="trace">Waiting for a run…</pre></article><article class="card"><h2>Outcome</h2><pre id="outcome">No completed run.</pre></article></section></main><script src="/static/app.js"></script></body></html>

@@ -1,0 +1,38 @@
+INVOICE
+=======
+Invoice Number: INV-CSC-2024-1201
+Date:           2024-09-25
+Due Date:       2024-10-25
+
+FROM:
+  CloudServices Corp
+  1 Cloud Blvd
+  Austin, TX 78701
+  Vendor Code: CSC003
+  Tax ID: 74-5556789
+
+TO:
+  CentrAlign AI (Accounts Payable)
+  456 Enterprise Blvd
+  New York, NY 10001
+
+REFERENCE: PO-2024-003
+
+LINE ITEMS:
+---------------------------------------------------------------------------
+#   SKU        Description                          Qty   Unit ($)  Total ($)
+---------------------------------------------------------------------------
+1   SAAS-ENT   Enterprise SaaS Annual License        8      400.00   3,200.00
+---------------------------------------------------------------------------
+                                           SUBTOTAL:          3,200.00
+                                           TAX (0%):              0.00
+                                           TOTAL DUE:         3,200.00
+---------------------------------------------------------------------------
+
+PAYMENT TERMS: Net 30
+BANK DETAILS:
+  Bank:    Wells Fargo
+  Account: 6612-9900-XXXX
+  Routing: 121042882
+
+Notes: License keys delivered via email 2024-09-20. Ref: EMAIL-2024-09-20-CSC.

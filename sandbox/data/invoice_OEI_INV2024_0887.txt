@@ -1,0 +1,39 @@
+INVOICE
+=======
+Invoice Number: INV-OEI-2024-0887
+Date:           2024-08-31
+Due Date:       2024-09-30
+
+FROM:
+  OfficeEssentials Inc
+  88 Stationery Lane
+  Chicago, IL 60601
+  Vendor Code: OEI002
+  Tax ID: 36-9876543
+
+TO:
+  CentrAlign AI (Accounts Payable)
+  456 Enterprise Blvd
+  New York, NY 10001
+
+REFERENCE: PO-2024-002
+
+LINE ITEMS:
+---------------------------------------------------------------------------
+#   SKU        Description                          Qty   Unit ($)  Total ($)
+---------------------------------------------------------------------------
+1   PAPER-A4   A4 Paper Box (500 sheets)            10       45.00     450.00
+2   PEN-BLU    Blue Ballpoint Pens Pack             20       20.00     400.00
+---------------------------------------------------------------------------
+                                           SUBTOTAL:            850.00
+                                           TAX (0%):              0.00
+                                           TOTAL DUE:            850.00
+---------------------------------------------------------------------------
+
+PAYMENT TERMS: Net 30
+BANK DETAILS:
+  Bank:    Chase Business Banking
+  Account: 7731-4422-XXXX
+  Routing: 021000021
+
+Notes: Office supplies delivered on 2024-08-29. All items inspected and accepted.

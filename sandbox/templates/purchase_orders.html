@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Purchase Orders — CentrAlign ERP</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; background: #0d1117; color: #e6edf3; min-height: 100vh; }
+    nav { background: #161b22; border-bottom: 1px solid #30363d; padding: 0 32px; display: flex; align-items: center; justify-content: space-between; height: 60px; }
+    nav .brand { font-size: 1.1rem; font-weight: 700; color: #6c63ff; }
+    nav .links a { color: #8b949e; text-decoration: none; margin-left: 24px; font-size: 0.9rem; font-weight: 500; }
+    nav .links a:hover { color: #e6edf3; }
+    main { max-width: 1100px; margin: 40px auto; padding: 0 24px; }
+    h1 { font-size: 1.75rem; font-weight: 700; margin-bottom: 24px; }
+    .search-bar { display: flex; gap: 12px; margin-bottom: 24px; }
+    .search-bar input {
+      flex: 1; padding: 10px 16px; background: #161b22;
+      border: 1px solid #30363d; border-radius: 10px; color: #e6edf3; font-size: 0.9rem;
+    }
+    .search-bar input:focus { outline: none; border-color: #6c63ff; }
+    .search-bar button {
+      padding: 10px 20px; background: #6c63ff; border: none; border-radius: 10px;
+      color: #fff; font-weight: 600; cursor: pointer;
+    }
+    table { width: 100%; border-collapse: collapse; background: #161b22; border: 1px solid #30363d; border-radius: 14px; overflow: hidden; }
+    th { background: #21262d; padding: 14px 18px; text-align: left; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.05em; color: #8b949e; font-weight: 600; }
+    td { padding: 14px 18px; border-top: 1px solid #30363d; font-size: 0.9rem; }
+    tr:hover td { background: rgba(108,99,255,0.05); }
+    .badge {
+      display: inline-block; padding: 3px 10px; border-radius: 20px;
+      font-size: 0.75rem; font-weight: 600; text-transform: capitalize;
+    }
+    .badge-open { background: rgba(34,197,94,0.15); color: #4ade80; }
+    .amount { font-family: monospace; color: #6c63ff; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <nav>
+    <span class="brand">🏢 CentrAlign ERP</span>
+    <div class="links">
+      <a href="/dashboard">Dashboard</a>
+      <a href="/purchase-orders">Purchase Orders</a>
+      <a href="/invoices">Invoices</a>
+      <a href="/invoices/new">+ New Invoice</a>
+    </div>
+  </nav>
+  <main>
+    <h1>📋 Purchase Orders</h1>
+    <form class="search-bar" method="GET" action="/purchase-orders" id="po-search-form">
+      <input id="po-search-input" name="search" type="text" placeholder="Search by vendor or PO number…" value="{{ search }}" />
+      <button type="submit" id="po-search-btn">Search</button>
+    </form>
+    <table id="po-table">
+      <thead>
+        <tr>
+          <th>PO Number</th><th>Vendor</th><th>Description</th><th>Date</th><th>Amount</th><th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for po in pos %}
+        <tr class="po-row" data-po-id="{{ po.id }}">
+          <td><strong>{{ po.id }}</strong></td>
+          <td>{{ po.vendor }}</td>
+          <td>{{ po.description }}</td>
+          <td>{{ po.po_date }}</td>
+          <td class="amount">${{ "{:,.2f}".format(po.total_amount) }}</td>
+          <td><span class="badge badge-{{ po.status }}">{{ po.status }}</span></td>
+        </tr>
+        {% else %}
+        <tr><td colspan="6" style="text-align:center;color:#8b949e;padding:32px">No purchase orders found.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </main>
+</body>
+</html>

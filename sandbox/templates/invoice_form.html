@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Submit Invoice — CentrAlign ERP</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; background: #0d1117; color: #e6edf3; min-height: 100vh; }
+    nav { background: #161b22; border-bottom: 1px solid #30363d; padding: 0 32px; display: flex; align-items: center; justify-content: space-between; height: 60px; }
+    nav .brand { font-size: 1.1rem; font-weight: 700; color: #6c63ff; }
+    nav .links a { color: #8b949e; text-decoration: none; margin-left: 24px; font-size: 0.9rem; font-weight: 500; }
+    nav .links a:hover { color: #e6edf3; }
+    main { max-width: 760px; margin: 40px auto; padding: 0 24px; }
+    h1 { font-size: 1.75rem; font-weight: 700; margin-bottom: 8px; }
+    .subtitle { color: #8b949e; margin-bottom: 32px; font-size: 0.9rem; }
+    .form-card { background: #161b22; border: 1px solid #30363d; border-radius: 16px; padding: 36px; }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+    .field { margin-bottom: 20px; }
+    label { display: block; color: #8b949e; font-size: 0.82rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 7px; }
+    input[type="text"], input[type="date"], select, textarea {
+      width: 100%; padding: 11px 14px;
+      background: #0d1117; border: 1px solid #30363d;
+      border-radius: 9px; color: #e6edf3; font-size: 0.93rem;
+      transition: border-color 0.2s, box-shadow 0.2s; outline: none;
+      font-family: inherit;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: #6c63ff; box-shadow: 0 0 0 3px rgba(108,99,255,0.2);
+    }
+    select option { background: #161b22; }
+    textarea { resize: vertical; min-height: 80px; }
+    .btn-submit {
+      width: 100%; padding: 13px;
+      background: linear-gradient(135deg, #6c63ff, #a855f7);
+      border: none; border-radius: 10px; color: #fff;
+      font-size: 1rem; font-weight: 700; cursor: pointer;
+      transition: opacity 0.2s, transform 0.1s; margin-top: 8px;
+    }
+    .btn-submit:hover { opacity: 0.9; transform: translateY(-1px); }
+    .alert { border-radius: 10px; padding: 14px 18px; font-size: 0.9rem; margin-bottom: 24px; }
+    .alert-error { background: rgba(239,68,68,0.12); border: 1px solid rgba(239,68,68,0.35); color: #fca5a5; }
+    .alert-success { background: rgba(34,197,94,0.12); border: 1px solid rgba(34,197,94,0.35); color: #4ade80; }
+    .section-title { color: #6c63ff; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 18px; padding-bottom: 10px; border-bottom: 1px solid #30363d; }
+  </style>
+</head>
+<body>
+  <nav>
+    <span class="brand">🏢 CentrAlign ERP</span>
+    <div class="links">
+      <a href="/dashboard">Dashboard</a>
+      <a href="/purchase-orders">Purchase Orders</a>
+      <a href="/invoices">Invoices</a>
+      <a href="/invoices/new">+ New Invoice</a>
+    </div>
+  </nav>
+  <main>
+    <h1>📄 Submit Invoice</h1>
+    <p class="subtitle">Enter the vendor invoice details below to submit for processing.</p>
+
+    {% if error %}
+    <div class="alert alert-error" id="form-error">⚠ {{ error }}</div>
+    {% endif %}
+    {% if success %}
+    <div class="alert alert-success" id="form-success">
+      ✅ {{ success }}
+      {% if record_id %}
+      <br/><strong>Record ID: <span id="record-id">{{ record_id }}</span></strong>
+      {% endif %}
+    </div>
+    {% endif %}
+
+    <div class="form-card">
+      <form id="invoice-form" method="POST" action="/invoices/new">
+        <p class="section-title">Vendor Details</p>
+        <div class="row">
+          <div class="field">
+            <label for="vendor_name">Vendor Name</label>
+            <input id="vendor_name" name="vendor_name" type="text" required placeholder="TechSupplies Ltd"/>
+          </div>
+          <div class="field">
+            <label for="vendor_code">Vendor Code</label>
+            <input id="vendor_code" name="vendor_code" type="text" required placeholder="TSL001"/>
+          </div>
+        </div>
+
+        <p class="section-title" style="margin-top:8px">Invoice Details</p>
+        <div class="row">
+          <div class="field">
+            <label for="po_number">PO Number</label>
+            <select id="po_number" name="po_number" required>
+              <option value="">— Select PO —</option>
+              {% for po in pos %}
+              <option value="{{ po.id }}">{{ po.id }} — {{ po.vendor }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="field">
+            <label for="invoice_number">Invoice Number</label>
+            <input id="invoice_number" name="invoice_number" type="text" required placeholder="INV-TSL-2024-0931"/>
+          </div>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label for="invoice_date">Invoice Date (YYYY-MM-DD)</label>
+            <input id="invoice_date" name="invoice_date" type="text" required placeholder="2024-09-30"/>
+          </div>
+          <div class="field">
+            <label for="due_date">Due Date (YYYY-MM-DD)</label>
+            <input id="due_date" name="due_date" type="text" required placeholder="2024-10-30"/>
+          </div>
+        </div>
+
+        <p class="section-title" style="margin-top:8px">Financials</p>
+        <div class="row">
+          <div class="field">
+            <label for="subtotal">Subtotal ($)</label>
+            <input id="subtotal" name="subtotal" type="text" required placeholder="12500.00"/>
+          </div>
+          <div class="field">
+            <label for="tax">Tax ($)</label>
+            <input id="tax" name="tax" type="text" required placeholder="0.00"/>
+          </div>
+        </div>
+        <div class="field">
+          <label for="total_amount">Total Amount ($)</label>
+          <input id="total_amount" name="total_amount" type="text" required placeholder="12500.00"/>
+        </div>
+        <div class="field">
+          <label for="notes">Notes</label>
+          <textarea id="notes" name="notes" placeholder="Optional — packing slip reference, delivery date, etc."></textarea>
+        </div>
+
+        <button id="submit-invoice-btn" class="btn-submit" type="submit">Submit Invoice →</button>
+      </form>
+    </div>
+  </main>
+</body>
+</html>

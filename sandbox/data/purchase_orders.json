@@ -1,0 +1,43 @@
+[
+  {
+    "id": "PO-2024-001",
+    "vendor": "TechSupplies Ltd",
+    "vendor_code": "TSL001",
+    "description": "Q3 Server Hardware Procurement",
+    "po_date": "2024-07-15",
+    "total_amount": 12500.00,
+    "status": "open",
+    "approval_threshold": 5000.00,
+    "line_items": [
+      {"sku": "SRV-R740", "description": "Dell PowerEdge R740 Server", "qty": 2, "unit_price": 5000.00},
+      {"sku": "RAM-64G", "description": "64GB DDR4 ECC RAM Kit",      "qty": 5, "unit_price": 500.00}
+    ]
+  },
+  {
+    "id": "PO-2024-002",
+    "vendor": "OfficeEssentials Inc",
+    "vendor_code": "OEI002",
+    "description": "Q3 Office Supplies Replenishment",
+    "po_date": "2024-08-01",
+    "total_amount": 850.00,
+    "status": "open",
+    "approval_threshold": 5000.00,
+    "line_items": [
+      {"sku": "PAPER-A4", "description": "A4 Paper Box (500 sheets)", "qty": 10, "unit_price": 45.00},
+      {"sku": "PEN-BLU",  "description": "Blue Ballpoint Pens Pack",  "qty": 20, "unit_price": 20.00}
+    ]
+  },
+  {
+    "id": "PO-2024-003",
+    "vendor": "CloudServices Corp",
+    "vendor_code": "CSC003",
+    "description": "Q3 SaaS Subscription Renewal",
+    "po_date": "2024-09-01",
+    "total_amount": 3200.00,
+    "status": "open",
+    "approval_threshold": 5000.00,
+    "line_items": [
+      {"sku": "SAAS-ENT", "description": "Enterprise SaaS Annual License", "qty": 8, "unit_price": 400.00}
+    ]
+  }
+]
