@@ -80,3 +80,5 @@ Architecture decisions are recorded in [decisions.md](decisions.md).
 The repository includes `render.yaml`, which defines two Singapore-region web services: `centralign-erp` and `centralign-agent`. In Render, choose **New → Blueprint**, select this repository, and sync the Blueprint. When prompted, provide `GROQ_API_KEY` or leave it blank to use the deterministic local planner. Open the URL for `centralign-agent` after both services are healthy.
 
 The free-tier deployment uses ephemeral local storage for ChromaDB, evidence, screenshots, and the mock ERP database. It is intended for a demonstration, not durable production data.
+
+For manual two-service setup, deploy the ERP first, copy its public `https://...onrender.com` URL, and set that URL as `SANDBOX_ERP_URL` on the agent service.
