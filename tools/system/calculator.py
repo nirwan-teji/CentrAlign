@@ -20,7 +20,7 @@ logger = logging.getLogger(__name__)
 _SAFE_NODES = {
     ast.Expression, ast.BinOp, ast.UnaryOp,
     ast.Add, ast.Sub, ast.Mult, ast.Div, ast.Mod, ast.Pow, ast.FloorDiv,
-    ast.USub, ast.UAdd, ast.Num, ast.Constant,
+    ast.USub, ast.UAdd, ast.Constant,
 }
 _SAFE_OPS = {
     ast.Add: operator.add, ast.Sub: operator.sub,
@@ -46,8 +46,6 @@ def _safe_eval(expr: str) -> float:
             return _eval(node.body)
         if isinstance(node, ast.Constant):
             return float(node.value)
-        if isinstance(node, ast.Num):  # Python 3.7 compat
-            return float(node.n)
         if isinstance(node, ast.BinOp):
             left = _eval(node.left)
             right = _eval(node.right)
