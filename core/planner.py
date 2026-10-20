@@ -105,7 +105,7 @@ class Planner:
                 if not isinstance(tool_args, dict):
                     raise ValueError(f"Tool arguments must be an object for {tool_name!r}")
                 url = tool_args.get("url")
-                if url and not str(url).startswith(("http://localhost", "http://127.0.0.1")):
+                if url and not str(url).startswith(("http://localhost", "http://127.0.0.1", settings.sandbox_erp_url)):
                     raise ValueError(f"External URL rejected by sandbox policy: {url}")
                 steps.append(
                     ActionStep(

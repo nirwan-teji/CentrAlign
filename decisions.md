@@ -166,3 +166,15 @@ Every architectural or design decision made by the implementing agent must be re
   Manual API calls or terminal-only approval.
 - **Tradeoffs & Consequences:**
   The in-process console is suitable for the prototype; production deployments would need durable run state and authenticated artifact access.
+
+### ADR-012: Render Two-Service Blueprint
+- **Date:** 2026-10-20
+- **Status:** Accepted
+- **Context & Problem Statement:**
+  The browser worker and sandbox ERP are separate local processes and must remain independently reachable after deployment.
+- **Decision:**
+  Define `centralign-agent` and `centralign-erp` as Render Python web services. The agent receives the ERP private host/port through a Blueprint `fromService` reference, binds to Render's `$PORT`, and installs Chromium during its build.
+- **Alternatives Considered:**
+  Combine both ASGI apps into one process or expose the ERP publicly and hard-code its URL.
+- **Tradeoffs & Consequences:**
+  Two services preserve the local architecture and avoid exposing the ERP, but Render free-tier storage is ephemeral and browser dependencies make agent builds heavier.

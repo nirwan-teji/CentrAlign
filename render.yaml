@@ -1,0 +1,34 @@
+services:
+  - type: web
+    name: centralign-erp
+    runtime: python
+    plan: free
+    region: singapore
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn sandbox.erp_app:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+
+  - type: web
+    name: centralign-agent
+    runtime: python
+    plan: free
+    region: singapore
+    buildCommand: pip install -r requirements.txt && playwright install --with-deps chromium
+    startCommand: python run.py
+    healthCheckPath: /health
+    envVars:
+      - key: GROQ_API_KEY
+        sync: false
+      - key: SANDBOX_ERP_HOSTPORT
+        fromService:
+          name: centralign-erp
+          type: web
+          property: hostport
+      - key: AGENT_SERVER_HOST
+        value: 0.0.0.0
+      - key: CHROMA_DB_PATH
+        value: /tmp/centralign-chromadb
+      - key: EVIDENCE_DIR
+        value: /tmp/centralign-evidence
+      - key: SCREENSHOTS_DIR
+        value: /tmp/centralign-screenshots

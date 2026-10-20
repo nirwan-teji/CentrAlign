@@ -35,6 +35,7 @@ class Settings(BaseSettings):
     # ── Sandbox ERP ─────────────────────────────────────────────────────────
     sandbox_erp_port: int = Field(default=8001, alias="SANDBOX_ERP_PORT")
     sandbox_erp_host: str = Field(default="localhost", alias="SANDBOX_ERP_HOST")
+    sandbox_erp_hostport: Optional[str] = Field(default=None, alias="SANDBOX_ERP_HOSTPORT")
     sandbox_erp_username: str = Field(default="admin", alias="SANDBOX_ERP_USERNAME")
     sandbox_erp_password: str = Field(default="admin123", alias="SANDBOX_ERP_PASSWORD")
 
@@ -65,6 +66,8 @@ class Settings(BaseSettings):
 
     @property
     def sandbox_erp_url(self) -> str:
+        if self.sandbox_erp_hostport:
+            return f"http://{self.sandbox_erp_hostport}"
         return f"http://{self.sandbox_erp_host}:{self.sandbox_erp_port}"
 
     @property

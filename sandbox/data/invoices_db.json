@@ -1,17 +1,1 @@
-[
-  {
-    "id": "INV-DB-E5AAF014",
-    "vendor_name": "TechSupplies Ltd",
-    "vendor_code": "TSL001",
-    "po_number": "PO-2024-001",
-    "invoice_number": "INV-TSL-2024-0931",
-    "invoice_date": "2024-09-30",
-    "due_date": "2024-10-30",
-    "subtotal": 12500.0,
-    "tax": 0.0,
-    "total_amount": 12500.0,
-    "notes": "Autonomous CentrAlign submission",
-    "status": "pending",
-    "submitted_at": "2026-10-20T11:53:02.127406"
-  }
-]
+[]

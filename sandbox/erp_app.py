@@ -369,4 +369,4 @@ async def health():
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("sandbox.erp_app:app", host="localhost", port=8001, reload=True)
+    uvicorn.run("sandbox.erp_app:app", host="0.0.0.0", port=int(os.getenv("PORT", "8001")), reload=False)

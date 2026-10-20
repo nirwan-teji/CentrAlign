@@ -74,3 +74,9 @@ Models and components: optional Groq `openai/gpt-oss-120b` with a configurable f
 Next steps would be durable queued execution, externalized policy and memory services, richer document/OCR extraction, desktop computer use, multi-worker event storage, and broader evaluation scenarios.
 
 Architecture decisions are recorded in [decisions.md](decisions.md).
+
+## Render deployment
+
+The repository includes `render.yaml`, which defines two Singapore-region web services: `centralign-erp` and `centralign-agent`. In Render, choose **New → Blueprint**, select this repository, and sync the Blueprint. When prompted, provide `GROQ_API_KEY` or leave it blank to use the deterministic local planner. Open the URL for `centralign-agent` after both services are healthy.
+
+The free-tier deployment uses ephemeral local storage for ChromaDB, evidence, screenshots, and the mock ERP database. It is intended for a demonstration, not durable production data.
