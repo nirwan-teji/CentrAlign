@@ -89,7 +89,7 @@ async def root(request: Request, session_token: Optional[str] = Cookie(None)):
 
 @app.get("/login", response_class=HTMLResponse)
 async def login_page(request: Request):
-    return templates.TemplateResponse("login.html", {"request": request, "error": None})
+    return templates.TemplateResponse(request, "login.html", {"request": request, "error": None})
 
 
 @app.post("/login", response_class=HTMLResponse)
@@ -105,6 +105,7 @@ async def do_login(
         resp.set_cookie("session_token", token, httponly=True)
         return resp
     return templates.TemplateResponse(
+        request,
         "login.html",
         {"request": request, "error": "Invalid credentials"},
     )
@@ -127,6 +128,7 @@ async def dashboard(request: Request, session_token: Optional[str] = Cookie(None
     invoices = _load_json(INVOICE_DB_FILE)
     pos = _load_json(PO_FILE)
     return templates.TemplateResponse(
+        request,
         "dashboard.html",
         {
             "request": request,
@@ -156,6 +158,7 @@ async def purchase_orders(
             or search_lower in p["id"].lower()
         ]
     return templates.TemplateResponse(
+        request,
         "purchase_orders.html",
         {"request": request, "pos": pos, "search": search},
     )
@@ -171,6 +174,7 @@ async def list_invoices(
     _require_auth(session_token)
     invoices = _load_json(INVOICE_DB_FILE)
     return templates.TemplateResponse(
+        request,
         "invoices.html",
         {"request": request, "invoices": invoices},
     )
@@ -184,6 +188,7 @@ async def new_invoice_form(
     _require_auth(session_token)
     pos = _load_json(PO_FILE)
     return templates.TemplateResponse(
+        request,
         "invoice_form.html",
         {"request": request, "pos": pos, "error": None, "success": None},
     )
@@ -212,6 +217,7 @@ async def submit_invoice(
     if CHAOS["validation_error_mode"]:
         CHAOS["validation_error_mode"] = False  # only fires once
         return templates.TemplateResponse(
+            request,
             "invoice_form.html",
             {
                 "request": request,
@@ -226,6 +232,7 @@ async def submit_invoice(
         total = float(total_amount.replace(",", ""))
     except ValueError:
         return templates.TemplateResponse(
+            request,
             "invoice_form.html",
             {
                 "request": request,
@@ -240,6 +247,7 @@ async def submit_invoice(
         datetime.strptime(invoice_date, "%Y-%m-%d")
     except ValueError:
         return templates.TemplateResponse(
+            request,
             "invoice_form.html",
             {
                 "request": request,
@@ -253,6 +261,7 @@ async def submit_invoice(
     matching_po = next((p for p in pos if p["id"] == po_number), None)
     if not matching_po:
         return templates.TemplateResponse(
+            request,
             "invoice_form.html",
             {
                 "request": request,
@@ -266,6 +275,7 @@ async def submit_invoice(
     invoices = _load_json(INVOICE_DB_FILE)
     if any(i["invoice_number"] == invoice_number for i in invoices):
         return templates.TemplateResponse(
+            request,
             "invoice_form.html",
             {
                 "request": request,
@@ -296,6 +306,7 @@ async def submit_invoice(
     _save_json(INVOICE_DB_FILE, invoices)
 
     return templates.TemplateResponse(
+        request,
         "invoice_form.html",
         {
             "request": request,
